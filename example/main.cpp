@@ -32,6 +32,7 @@ int main(int, char**)
 	ImGui::StyleColorsDark();
     sceClibPrintf("getting style\n");
     ImGuiStyle &style = ImGui::GetStyle();
+    style.WindowBorderSize = 0.0f;
     style.FrameBorderSize = 0.0f;
     style.FrameRounding = 0.0f;
 
@@ -81,7 +82,7 @@ static int current_category = 0;
             case BT_WIN_BROWSE:
                 ImGui::Text("Category:");
                 ImGui::SameLine();
-                ImGui::Combo(NULL, &current_category, categories, IM_ARRAYSIZE(categories)); 
+                ImGui::Combo("", &current_category, categories, IM_ARRAYSIZE(categories)); 
                 break;
             case BT_WIN_UPDATE:
                 break;
