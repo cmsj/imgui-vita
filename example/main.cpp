@@ -90,9 +90,11 @@ static int current_category = 0;
             default: // This is here so if something goes wrong, we default to showing the Browse page
                 current_window = BT_WIN_BROWSE;
             case BT_WIN_BROWSE:
+                ImGui::Columns(2, "category", false);
                 ImGui::Text("Category:");
-                ImGui::SameLine();
+                ImGui::NextColumn();
                 ImGui::Combo("", &current_category, categories, IM_ARRAYSIZE(categories)); 
+                ImGui::Columns(1);
                 break;
             case BT_WIN_UPDATE:
                 break;
