@@ -18,10 +18,11 @@ enum BT_WIN {
 
 int main(int, char**)
 {
-	
+	sceClibPrintf("starting up\n");
 	vglInit(0x100000);
 
 	// Setup ImGui binding
+    sceClibPrintf("creating context\n");
 	ImGui::CreateContext();
 	ImGuiIO& io = ImGui::GetIO(); (void)io;
 	ImGui_ImplVitaGL_Init();
