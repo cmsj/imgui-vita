@@ -40,7 +40,7 @@ int main(int, char**)
 
     // General styling
     style.FrameBorderSize = 0.0f;
-    style.FrameRounding = 0.0f;
+    style.FrameRounding = 3.0f;
     style.FramePadding = ImVec2(3.0f, 3.0f);
 
     // Load font
@@ -72,13 +72,14 @@ static int current_category = 0;
         ImGui::SetNextWindowSize(ImVec2(io.DisplaySize.x, io.DisplaySize.y)); 
         ImGui::Begin("Main Window", NULL, fullscreenFlags);
 
+        ImVec2 headerButtonSize = ImVec2(200.0f, 75.0f);
         // This is effectively a poor man's tab bar, but ImGui doesn't have native tabs yet
         ImGui::Columns(3, "tabbar", false);
-        if (ImGui::Button("Browse", ImVec2(200.0f, 100.0f))) current_window = BT_WIN_BROWSE;
+        if (ImGui::Button("Browse", headerButtonSize)) current_window = BT_WIN_BROWSE;
         ImGui::NextColumn();
-        if (ImGui::Button("Search", ImVec2(200.0f, 100.0f))) current_window = BT_WIN_SEARCH;
+        if (ImGui::Button("Search", headerButtonSize)) current_window = BT_WIN_SEARCH;
         ImGui::NextColumn();
-        if (ImGui::Button("Updates", ImVec2(200.0f, 100.0f))) current_window = BT_WIN_UPDATE;
+        if (ImGui::Button("Updates", headerButtonSize)) current_window = BT_WIN_UPDATE;
         ImGui::Columns(1);
 
         // BEGIN: Contents
