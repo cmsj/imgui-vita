@@ -81,6 +81,7 @@ static int current_category = 0;
         ImGui::NextColumn();
         if (ImGui::Button("Updates", headerButtonSize)) current_window = BT_WIN_UPDATE;
         ImGui::Columns(1);
+        ImGui::Dummy(ImVec2(0.0f, 5.0f));
 
         // BEGIN: Contents
         switch (current_window) {
