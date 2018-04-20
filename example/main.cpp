@@ -30,7 +30,7 @@ int main(int, char**)
 	ImGui::StyleColorsDark();
 
     // Load font
-    io.Fonts->AddFontFromFileTTF("ux0:app/IMGUI0001/font.ttf", 10.0f);
+    io.Fonts->AddFontFromFileTTF("ux0:app/IMGUI0001/font.ttf", 30.0f);
 
     enum BT_WIN current_window = BT_WIN_BROWSE;
     ImGuiWindowFlags fullscreenFlags = ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoTitleBar;
