@@ -18,15 +18,6 @@ enum BT_WIN {
     BT_WIN_DEMO
 }
 
-const char* categories[] = {
-    "All",
-    "Ports",
-    "Games",
-    "Emulators",
-    "Utilities"
-}
-static int current_category = 0;
-
 int main(int, char**)
 {
 	
@@ -41,10 +32,18 @@ int main(int, char**)
 	ImGui::StyleColorsDark();
 
     enum BT_WIN current_window = BT_WIN_MAIN;
-    bool show_main_window = true;
-	bool show_demo_window = false;
-	bool show_another_window = false;
+    ImGuiWindowFlags fullscreenFlags = ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoTitleBar;
 	ImVec4 clear_color = ImVec4(0.45f, 0.55f, 0.60f, 1.00f);
+
+const char* categories[] = {
+    "All",
+    "Ports",
+    "Games",
+    "Emulators",
+    "Utilities"
+}
+static int current_category = 0;
+
 
 	// Main loop
 	bool done = false;
@@ -57,7 +56,7 @@ int main(int, char**)
             case BT_WIN_MAIN:
                 ImGui::SetNextWindowPos(ImVec2(0, 0));
                 ImGui::SetNextWindowSize(ImVec2(io.DisplaySize.x, io.DisplaySize.y)); 
-                ImGui::Begin("Main Window", &show_main_window, ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoTitleBar);
+                ImGui::Begin("Main Window", NULL, fullscreenFlags);
                 ImGui::Text("BrewThing");
                 if (ImGui::Button("Browse")) {
                     current_window = BT_WIN_BROWSE;
@@ -79,8 +78,8 @@ int main(int, char**)
             case BT_WIN_BROWSE:
                 ImGui::SetNextWindowPos(ImVec2(0, 0));
                 ImGui::SetNextWindowSize(ImVec2(io.DisplaySize.x, io.DisplaySize.y)); 
-                ImGui::Begin("Browse Window", &show_main_window, ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoTitleBar);
-                ImGui::Combo("Category", &curren_category, categories, IM_ARRAYSIZE(categories)); 
+                ImGui::Begin("Browse Window", NULL, fullscreenFlags);
+                ImGui::Combo("Category", &current_category, categories, IM_ARRAYSIZE(categories)); 
             break;
             case BT_WIN_UPDATE:
             break;
