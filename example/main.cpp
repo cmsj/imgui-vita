@@ -73,13 +73,12 @@ static int current_category = 0;
         ImGui::Begin("Main Window", NULL, fullscreenFlags);
 
         // This is effectively a poor man's tab bar, but ImGui doesn't have native tabs yet
-        if (ImGui::Button("Browse")) current_window = BT_WIN_BROWSE;
+        if (ImGui::Button("Browse", ImVec2(50.0f, 20.0f))) current_window = BT_WIN_BROWSE;
         ImGui::SameLine();
         if (ImGui::Button("Search")) current_window = BT_WIN_SEARCH;
         ImGui::SameLine();
         if (ImGui::Button("Updates")) current_window = BT_WIN_UPDATE;
         ImGui::NewLine();
-        ImGui::Separator();
 
         // BEGIN: Contents
         switch (current_window) {
