@@ -27,9 +27,12 @@ int main(int, char**)
 	ImGui_ImplVitaGL_Init();
 
 	// Setup style
+    sceClibPrintf("setting style\n");
 	ImGui::StyleColorsDark();
+    sceClibPrintf("getting style\n");
     ImGuiStyle &style = ImGui::GetStyle();
     style.FrameBorderSize = 0.0f;
+    style.FrameRounding = 0.0f;
 
     // Load font
     io.Fonts->AddFontFromFileTTF("ux0:app/IMGUI0001/font.ttf", 30.0f);
