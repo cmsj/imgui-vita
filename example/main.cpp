@@ -109,7 +109,9 @@ static int selected_app = 0;
                 ImGui::Combo("", &current_category, categories, IM_ARRAYSIZE(categories)); 
                 ImGui::PopItemWidth();
                 ImGui::Columns(1);
+                ImGui::Dummy(ImVec2(0.0f, 5.0f));
 
+                ImGui::PushItemWidth(-1.0f);
                 ImGui::ListBox("", &selected_app, apps, IM_ARRAYSIZE(apps), 4);
                 break;
             case BT_WIN_UPDATE:
