@@ -41,7 +41,7 @@ const char* categories[] = {
     "Games",
     "Emulators",
     "Utilities"
-}
+};
 static int current_category = 0;
 
 
