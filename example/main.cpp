@@ -40,7 +40,7 @@ int main(int, char**)
 
     // General styling
     style.FrameBorderSize = 0.0f;
-    style.FrameRounding = 3.0f;
+    style.FrameRounding = 5.0f;
     style.FramePadding = ImVec2(3.0f, 3.0f);
 
     // Load font
