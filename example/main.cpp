@@ -10,6 +10,23 @@
 #include <stdio.h>
 #include <vitaGL.h>
 
+enum BT_WIN {
+    BT_WIN_MAIN,
+    BT_WIN_SEARCH,
+    BT_WIN_BROWSE,
+    BT_WIN_UPDATE,
+    BT_WIN_DEMO
+}
+
+const char* categories[] = {
+    "All",
+    "Ports",
+    "Games",
+    "Emulators",
+    "Utilities"
+}
+static int current_category = 0;
+
 int main(int, char**)
 {
 	
@@ -23,6 +40,7 @@ int main(int, char**)
 	// Setup style
 	ImGui::StyleColorsDark();
 
+    enum BT_WIN current_window = BT_WIN_MAIN;
     bool show_main_window = true;
 	bool show_demo_window = false;
 	bool show_another_window = false;
@@ -35,27 +53,46 @@ int main(int, char**)
 		vglStartRendering();
 		ImGui_ImplVitaGL_NewFrame();
 		
-		// 1. Show a simple window.
-		// Tip: if we don't call ImGui::Begin()/ImGui::End() the widgets automatically appears in a window called "Debug".
-		{
-            ImGui::SetNextWindowPos(ImVec2(0, 0));
-            ImGui::SetNextWindowSize(ImVec2(io.DisplaySize.x, io.DisplaySize.y)); 
-            ImGui::Begin("Main Window", &show_main_window, ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoTitleBar);
-            ImGui::Text("Welcome to Dear imgui for Vita.");
-            if (ImGui::Button("Show demo window")) {
-                show_demo_window = true;
-            }
-			ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);
-            ImGui::End();
+        switch (current_window) {
+            case BT_WIN_MAIN:
+                ImGui::SetNextWindowPos(ImVec2(0, 0));
+                ImGui::SetNextWindowSize(ImVec2(io.DisplaySize.x, io.DisplaySize.y)); 
+                ImGui::Begin("Main Window", &show_main_window, ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoTitleBar);
+                ImGui::Text("BrewThing");
+                if (ImGui::Button("Browse")) {
+                    current_window = BT_WIN_BROWSE;
+                }
+                if (ImGui::Button("Search")) {
+                    current_window = BT_WIN_SEARCH;
+                }
+                if (ImGui::Button("Update")) {
+                    current_window = BT_WIN_UPDATE;
+                }
+                if (ImGui::Button("Demo")) {
+                    current_window = BT_WIN_DEMO;
+                }
+    			ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);
+                ImGui::End();
+            break;
+            case BT_WIN_SEARCH:
+            break;
+            case BT_WIN_BROWSE:
+                ImGui::SetNextWindowPos(ImVec2(0, 0));
+                ImGui::SetNextWindowSize(ImVec2(io.DisplaySize.x, io.DisplaySize.y)); 
+                ImGui::Begin("Browse Window", &show_main_window, ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoTitleBar);
+                ImGui::Combo("Category", &curren_category, categories, IM_ARRAYSIZE(categories)); 
+            break;
+            case BT_WIN_UPDATE:
+            break;
+            case BT_WIN_DEMO:
+                ImGui::ShowDemoWindow();
+            break;
+            default:
+                // Something has gone wrong
+                current_window = BT_WIN_MAIN;
+                break;
+        }
 
-		}
-
-		// 3. Show the ImGui demo window. Most of the sample code is in ImGui::ShowDemoWindow(). Read its code to learn more about Dear ImGui!
-		if (show_demo_window)
-		{
-			ImGui::SetNextWindowPos(ImVec2(650, 20), ImGuiCond_FirstUseEver); // Normally user code doesn't need/want to call this because positions are saved in .ini file anyway. Here we just want to make the demo initial state a bit more friendly!
-			ImGui::ShowDemoWindow(&show_demo_window);
-		}
 
 		// Rendering
 		glViewport(0, 0, (int)ImGui::GetIO().DisplaySize.x, (int)ImGui::GetIO().DisplaySize.y);
