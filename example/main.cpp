@@ -33,7 +33,7 @@ int main(int, char**)
     io.Fonts->AddFontFromFileTTF("ux0:app/IMGUI0001/font.ttf", 30.0f);
 
     enum BT_WIN current_window = BT_WIN_BROWSE;
-    ImGuiWindowFlags fullscreenFlags = ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoTitleBar;
+    ImGuiWindowFlags fullscreenFlags = ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoBringToFrontOnFocus;
 	ImVec4 clear_color = ImVec4(0.45f, 0.55f, 0.60f, 1.00f);
 
 const char* categories[] = {
@@ -73,7 +73,9 @@ static int current_category = 0;
             default: // This is here so if something goes wrong, we default to showing the Browse page
                 current_window = BT_WIN_BROWSE;
             case BT_WIN_BROWSE:
-                ImGui::Combo("Category", &current_category, categories, IM_ARRAYSIZE(categories)); 
+                ImGui::Text("Category:");
+                ImGui::SameLine();
+                ImGui::Combo(NULL, &current_category, categories, IM_ARRAYSIZE(categories)); 
                 break;
             case BT_WIN_UPDATE:
                 break;
