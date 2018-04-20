@@ -28,6 +28,8 @@ int main(int, char**)
 
 	// Setup style
 	ImGui::StyleColorsDark();
+    ImGuiStyle &style = ImGui::GetStyle();
+    style.FrameBorderSize = 0.0f;
 
     // Load font
     io.Fonts->AddFontFromFileTTF("ux0:app/IMGUI0001/font.ttf", 30.0f);
