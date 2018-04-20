@@ -66,8 +66,8 @@ const char* apps[] = {
     "vitaHexen",
     "VitaShell",
     "ScummVM"
-}
-int selected_app = 0;
+};
+static int selected_app = 0;
 
 	// Main loop
 	bool done = false;
