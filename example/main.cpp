@@ -90,7 +90,7 @@ static int selected_app = 0;
         ImGui::NextColumn();
         if (ImGui::Button("Updates", headerButtonSize)) current_window = BT_WIN_UPDATE;
         ImGui::Columns(1);
-        ImGui::NewLine();
+        ImGui::Spacing();
         //ImGui::Dummy(ImVec2(0.0f, 5.0f));
 
         // BEGIN: Contents
@@ -109,9 +109,10 @@ static int selected_app = 0;
                 ImGui::PushItemWidth(-1.0f);
                 ImGui::Combo("", &current_category, categories, IM_ARRAYSIZE(categories));
                 ImGui::Columns(1);
-        ImGui::NewLine();
+        ImGui::Spacing();
                 //ImGui::Dummy(ImVec2(0.0f, 5.0f));
 
+                ImGui::PushItemWidth(-1.0f);
                 ImGui::ListBox("", &selected_app, apps, IM_ARRAYSIZE(apps), 11);
                 break;
             case BT_WIN_UPDATE:
