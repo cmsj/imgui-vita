@@ -69,16 +69,13 @@ static int current_category = 0;
         // BEGIN: Contents
         switch (current_window) {
             case BT_WIN_SEARCH:
-                ImGui::Text("Search");
                 break;
             default: // This is here so if something goes wrong, we default to showing the Browse page
                 current_window = BT_WIN_BROWSE;
             case BT_WIN_BROWSE:
-                ImGui::Text("Browse");
                 ImGui::Combo("Category", &current_category, categories, IM_ARRAYSIZE(categories)); 
                 break;
             case BT_WIN_UPDATE:
-                ImGui::Text("Updates");
                 break;
         }
 
