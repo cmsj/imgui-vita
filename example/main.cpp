@@ -80,6 +80,7 @@ static int current_category = 0;
                 ImGui::SetNextWindowSize(ImVec2(io.DisplaySize.x, io.DisplaySize.y)); 
                 ImGui::Begin("Browse Window", NULL, fullscreenFlags);
                 ImGui::Combo("Category", &current_category, categories, IM_ARRAYSIZE(categories)); 
+                ImGui::End();
             break;
             case BT_WIN_UPDATE:
             break;
