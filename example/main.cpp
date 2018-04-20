@@ -59,6 +59,15 @@ const char* categories[] = {
 };
 static int current_category = 0;
 
+const char* apps[] = {
+    "Adrenaline",
+    "VHBB",
+    "vitaQuakeIII",
+    "vitaHexen",
+    "VitaShell",
+    "ScummVM
+}
+static int selected_app = 0;
 
 	// Main loop
 	bool done = false;
@@ -100,6 +109,8 @@ static int current_category = 0;
                 ImGui::Combo("", &current_category, categories, IM_ARRAYSIZE(categories)); 
                 ImGui::PopItemWidth();
                 ImGui::Columns(1);
+
+                ImGui::ListBox("", &selected_app, apps, IM_ARRAYSIZE(apps), 4);
                 break;
             case BT_WIN_UPDATE:
                 break;
