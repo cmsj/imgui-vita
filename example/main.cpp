@@ -11,11 +11,9 @@
 #include <vitaGL.h>
 
 enum BT_WIN {
-    BT_WIN_MAIN,
     BT_WIN_SEARCH,
     BT_WIN_BROWSE,
-    BT_WIN_UPDATE,
-    BT_WIN_DEMO
+    BT_WIN_UPDATE
 };
 
 int main(int, char**)
@@ -31,7 +29,7 @@ int main(int, char**)
 	// Setup style
 	ImGui::StyleColorsDark();
 
-    enum BT_WIN current_window = BT_WIN_MAIN;
+    enum BT_WIN current_window = BT_WIN_BROWSE;
     ImGuiWindowFlags fullscreenFlags = ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoTitleBar;
 	ImVec4 clear_color = ImVec4(0.45f, 0.55f, 0.60f, 1.00f);
 
@@ -51,47 +49,40 @@ static int current_category = 0;
 	{
 		vglStartRendering();
 		ImGui_ImplVitaGL_NewFrame();
-		
+
+        // BEGIN: Header
+        ImGui::SetNextWindowPos(ImVec2(0, 0));
+        ImGui::SetNextWindowSize(ImVec2(io.DisplaySize.x, io.DisplaySize.y)); 
+        ImGui::Begin("Main Window", NULL, fullscreenFlags);
+        ImGui::Text("BrewThing");
+
+        // This is effectively a poor man's tab bar, but ImGui doesn't have native tabs yet
+        if ImGui::Button("Browse") current_window = BT_WIN_BROWSE;
+        ImGui::SameLine();
+        if ImGui::Button("Search") current_window = BT_WIN_SEARCH;
+        ImGui::SameLine();
+        if ImGui::Button("Updates") current_window = BT_WIN_UPDATE;
+        ImGui::SameLine();
+
+        // BEGIN: Contents
         switch (current_window) {
-            case BT_WIN_MAIN:
-                ImGui::SetNextWindowPos(ImVec2(0, 0));
-                ImGui::SetNextWindowSize(ImVec2(io.DisplaySize.x, io.DisplaySize.y)); 
-                ImGui::Begin("Main Window", NULL, fullscreenFlags);
-                ImGui::Text("BrewThing");
-                if (ImGui::Button("Browse")) {
-                    current_window = BT_WIN_BROWSE;
-                }
-                if (ImGui::Button("Search")) {
-                    current_window = BT_WIN_SEARCH;
-                }
-                if (ImGui::Button("Update")) {
-                    current_window = BT_WIN_UPDATE;
-                }
-                if (ImGui::Button("Demo")) {
-                    current_window = BT_WIN_DEMO;
-                }
-    			ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);
-                ImGui::End();
-            break;
             case BT_WIN_SEARCH:
-            break;
+                ImGui::Text("Search");
+                break;
+            default: // This is here so if something goes wrong, we default to showing the Browse page
+                current_window = BT_WIN_BROWSE;
             case BT_WIN_BROWSE:
-                ImGui::SetNextWindowPos(ImVec2(0, 0));
-                ImGui::SetNextWindowSize(ImVec2(io.DisplaySize.x, io.DisplaySize.y)); 
-                ImGui::Begin("Browse Window", NULL, fullscreenFlags);
+                ImGui::Text("Browse");
                 ImGui::Combo("Category", &current_category, categories, IM_ARRAYSIZE(categories)); 
-                ImGui::End();
-            break;
+                break;
             case BT_WIN_UPDATE:
-            break;
-            case BT_WIN_DEMO:
-                ImGui::ShowDemoWindow();
-            break;
-            default:
-                // Something has gone wrong
-                current_window = BT_WIN_MAIN;
+                ImGui::Text("Updates");
                 break;
         }
+
+        // BEGIN: Footer
+        ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);
+        ImGui::End();
 
 
 		// Rendering
