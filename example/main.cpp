@@ -36,12 +36,12 @@ int main(int, char**)
     // Window styling
     style.WindowBorderSize = 0.0f;
     style.WindowRounding = 0.0f;
-    style.WindowPadding = 10.0f;
+    style.WindowPadding = ImVec2(10.0f, 10.0f);
 
     // General styling
     style.FrameBorderSize = 0.0f;
     style.FrameRounding = 0.0f;
-    style.FramePadding = 3.0f;
+    style.FramePadding = ImVec2(3.0f, 3.0f);
 
     // Load font
     io.Fonts->AddFontFromFileTTF("ux0:app/IMGUI0001/font.ttf", 30.0f);
