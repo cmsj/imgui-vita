@@ -409,8 +409,6 @@ void ImGui_ImplVitaGL_NewFrame()
 			if (lx > 0) io.NavInputs[ImGuiNavInput_LStickRight] = (float)(lx/128);
 			if (ly < 0) io.NavInputs[ImGuiNavInput_LStickUp] = (float)(-ly/127);
 			if (ly > 0) io.NavInputs[ImGuiNavInput_LStickDown] = (float)(ly/128);
-        sceClibPrintf("mouse data:\n  pad.lx: %d, pad.ly: %d\n  lx: %d, ly: %d\n  mx: %d, my: %d\n", pad.lx, pad.ly, lx, ly, mx, my);
-        sceClibPrintf("nav   data:\n  Left: %0.3f, Right: %0.3f, Up: %0.3f, Down: %0.3f\n", io.NavInputs[ImGuiNavInput_LStickLeft], io.NavInputs[ImGuiNavInput_LStickRight], io.NavInputs[ImGuiNavInput_LStickUp], io.NavInputs[ImGuiNavInput_LStickDown]);
 		} else {
 			mx += lx >> 2;
 			my += ly >> 2;
