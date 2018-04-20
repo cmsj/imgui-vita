@@ -390,7 +390,6 @@ void ImGui_ImplVitaGL_NewFrame()
 		int lx = pad.lx - 127;
 		int ly = pad.ly - 127;
 		IN_RescaleAnalog(&lx, &ly, 30);
-        sceClibPrintf("mouse data:\n  pad.lx: %d, pad.ly: %d\n  lx: %d, ly: %d\n  mx: %d, my: %d\n", pad.lx, pad.ly, lx, ly, mx, my);
 		
 		// Set navigation inputs based on which buttons are pressed
 		io.NavInputs[ImGuiNavInput_Activate] = (pad.buttons & SCE_CTRL_CROSS) ? 1.0f : 0.0f;
@@ -410,28 +409,29 @@ void ImGui_ImplVitaGL_NewFrame()
 			if (lx > 0) io.NavInputs[ImGuiNavInput_LStickRight] = (float)(lx/128);
 			if (ly < 0) io.NavInputs[ImGuiNavInput_LStickUp] = (float)(-ly/127);
 			if (ly > 0) io.NavInputs[ImGuiNavInput_LStickDown] = (float)(ly/128);
+        sceClibPrintf("mouse data:\n  pad.lx: %d, pad.ly: %d\n  lx: %d, ly: %d\n  mx: %d, my: %d\n", pad.lx, pad.ly, lx, ly, mx, my);
+        sceClibPrintf("nav   data:\n  Left: %0.3f, Right: %0.3f, Up: %0.3f, Down: %0.3f\n", io.NavInputs[ImGuiNavInput_LStickLeft], io.NavInputs[ImGuiNavInput_LStickRight], io.NavInputs[ImGuiNavInput_LStickUp], io.NavInputs[ImGuiNavInput_LStickDown]);
 		} else {
 			mx += lx >> 2;
 			my += ly >> 2;
 			g_MousePressed[0] = pad.buttons & SCE_CTRL_LTRIGGER;
 			g_MousePressed[1] = pad.buttons & SCE_CTRL_RTRIGGER;
+			// Setup mouse inputs (we already got mouse wheel, keyboard keys & characters from our event handler)
+			//Uint32 mouse_buttons = SDL_GetMouseState(&mx, &my);
+			io.MousePos = ImVec2(-FLT_MAX, -FLT_MAX);
+			io.MouseDown[0] = g_MousePressed[0];
+			io.MouseDown[1] = g_MousePressed[1];
+			io.MouseDown[2] = g_MousePressed[2];
+			g_MousePressed[0] = g_MousePressed[1] = g_MousePressed[2] = false;
+			
+			if (mx < 0) mx = 0;
+			else if (mx > 960) mx = 960;
+			if (my < 0) my = 0;
+			else if (my > 544) my = 544;
+			io.MousePos = ImVec2((float)mx, (float)my);
 		}
 	}
 	
-	// Setup mouse inputs (we already got mouse wheel, keyboard keys & characters from our event handler)
-	//Uint32 mouse_buttons = SDL_GetMouseState(&mx, &my);
-	io.MousePos = ImVec2(-FLT_MAX, -FLT_MAX);
-	io.MouseDown[0] = g_MousePressed[0];
-	io.MouseDown[1] = g_MousePressed[1];
-	io.MouseDown[2] = g_MousePressed[2];
-	g_MousePressed[0] = g_MousePressed[1] = g_MousePressed[2] = false;
-	
-	if (mx < 0) mx = 0;
-	else if (mx > 960) mx = 960;
-	if (my < 0) my = 0;
-	else if (my > 544) my = 544;
-	io.MousePos = ImVec2((float)mx, (float)my);
-
 	// Start the frame. This call will update the io.WantCaptureMouse, io.WantCaptureKeyboard flag that you can use to dispatch inputs (or not) to your application.
 	ImGui::NewFrame();
 }
