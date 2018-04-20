@@ -90,7 +90,7 @@ static int selected_app = 0;
         ImGui::NextColumn();
         if (ImGui::Button("Updates", headerButtonSize)) current_window = BT_WIN_UPDATE;
         ImGui::Columns(1);
-        ImGui::Dummy(ImVec2(0.0f, 5.0f));
+        //ImGui::Dummy(ImVec2(0.0f, 5.0f));
 
         // BEGIN: Contents
         switch (current_window) {
@@ -109,7 +109,7 @@ static int selected_app = 0;
                 ImGui::Combo("", &current_category, categories, IM_ARRAYSIZE(categories)); 
                 ImGui::PopItemWidth();
                 ImGui::Columns(1);
-                ImGui::Dummy(ImVec2(0.0f, 5.0f));
+                //ImGui::Dummy(ImVec2(0.0f, 5.0f));
 
                 ImGui::PushItemWidth(-1.0f);
                 ImGui::ListBox("", &selected_app, apps, IM_ARRAYSIZE(apps), 11);
