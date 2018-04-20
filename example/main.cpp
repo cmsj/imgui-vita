@@ -57,7 +57,6 @@ static int current_category = 0;
         ImGui::SetNextWindowPos(ImVec2(0, 0));
         ImGui::SetNextWindowSize(ImVec2(io.DisplaySize.x, io.DisplaySize.y)); 
         ImGui::Begin("Main Window", NULL, fullscreenFlags);
-        ImGui::Text("BrewThing");
 
         // This is effectively a poor man's tab bar, but ImGui doesn't have native tabs yet
         if (ImGui::Button("Browse")) current_window = BT_WIN_BROWSE;
