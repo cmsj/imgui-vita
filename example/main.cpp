@@ -22,6 +22,7 @@ int main(int, char**)
 
 	// Setup style
 	ImGui::StyleColorsDark();
+    io.FontGlobalScale = 5.0f;
 
     bool show_main_window = true;
 	bool show_demo_window = false;
