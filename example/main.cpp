@@ -65,7 +65,7 @@ const char* apps[] = {
     "vitaQuakeIII",
     "vitaHexen",
     "VitaShell",
-    "ScummVM
+    "ScummVM"
 }
 static int selected_app = 0;
 
