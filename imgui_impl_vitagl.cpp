@@ -383,17 +383,39 @@ void ImGui_ImplVitaGL_NewFrame()
 		}
 	}
 	
-	// Keys for mouse emulation
+	// Keys for button navigation and mouse emulation
 	if (keys_usage){
 		SceCtrlData pad;
 		sceCtrlPeekBufferPositive(0, &pad, 1);
 		int lx = pad.lx - 127;
 		int ly = pad.ly - 127;
 		IN_RescaleAnalog(&lx, &ly, 30);
-		mx += lx >> 2;
-		my += ly >> 2;
-		g_MousePressed[0] = pad.buttons & SCE_CTRL_LTRIGGER;
-		g_MousePressed[1] = pad.buttons & SCE_CTRL_RTRIGGER;
+        sceClibPrintf("mouse data:\n  pad.lx: %d, pad.ly: %d\n  lx: %d, ly: %d\n  mx: %d, my: %d\n", pad.lx, pad.ly, lx, ly, mx, my);
+		
+		// Set navigation inputs based on which buttons are pressed
+		io.NavInputs[ImGuiNavInput_Activate] = (pad.buttons & SCE_CTRL_CROSS) ? 1.0f : 0.0f;
+		io.NavInputs[ImGuiNavInput_Cancel] = (pad.buttons & SCE_CTRL_CIRCLE) ? 1.0f : 0.0f;
+		io.NavInputs[ImGuiNavInput_Input] = (pad.buttons & SCE_CTRL_TRIANGLE) ? 1.0f : 0.0f;
+		io.NavInputs[ImGuiNavInput_Menu] = (pad.buttons & SCE_CTRL_SQUARE) ? 1.0f : 0.0f;
+		io.NavInputs[ImGuiNavInput_DpadLeft] = (pad.buttons & SCE_CTRL_LEFT) ? 1.0f : 0.0f;
+		io.NavInputs[ImGuiNavInput_DpadRight] = (pad.buttons & SCE_CTRL_RIGHT) ? 1.0f : 0.0f;
+		io.NavInputs[ImGuiNavInput_DpadUp] = (pad.buttons & SCE_CTRL_UP) ? 1.0f : 0.0f;
+		io.NavInputs[ImGuiNavInput_DpadDown] = (pad.buttons & SCE_CTRL_DOWN) ? 1.0f : 0.0f;
+		
+		// If ImGuiNavInput_Menu is active, the behaviour of left stick and trigger buttons changes
+		if (io.NavInputs[ImGuiNavInput_Menu] == 1.0f) {
+			io.NavInputs[ImGuiNavInput_FocusPrev] = (pad.buttons & SCE_CTRL_LTRIGGER) ? 1.0f : 0.0f;
+			io.NavInputs[ImGuiNavInput_FocusNext] = (pad.buttons & SCE_CTRL_RTRIGGER) ? 1.0f : 0.0f;
+			if (lx < 0) io.NavInputs[ImGuiNavInput_LStickLeft] = (float)(-lx/127);
+			if (lx > 0) io.NavInputs[ImGuiNavInput_LStickRight] = (float)(lx/128);
+			if (ly < 0) io.NavInputs[ImGuiNavInput_LStickUp] = (float)(-ly/127);
+			if (ly > 0) io.NavInputs[ImGuiNavInput_LStickDown] = (float)(ly/128);
+		} else {
+			mx += lx >> 2;
+			my += ly >> 2;
+			g_MousePressed[0] = pad.buttons & SCE_CTRL_LTRIGGER;
+			g_MousePressed[1] = pad.buttons & SCE_CTRL_RTRIGGER;
+		}
 	}
 	
 	// Setup mouse inputs (we already got mouse wheel, keyboard keys & characters from our event handler)
