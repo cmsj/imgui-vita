@@ -16,7 +16,7 @@ enum BT_WIN {
     BT_WIN_BROWSE,
     BT_WIN_UPDATE,
     BT_WIN_DEMO
-}
+};
 
 int main(int, char**)
 {
