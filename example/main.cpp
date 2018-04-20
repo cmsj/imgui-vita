@@ -92,11 +92,11 @@ static int current_category = 0;
             case BT_WIN_BROWSE:
                 ImGui::Columns(2, "category", false);
                 ImGui::SetColumnWidth(-1, 200.0f);
-                ImGui::PushItemWidth(-1);
+                ImGui::PushItemWidth(-1.0f);
                 ImGui::Text("Category:");
                 ImGui::PopItemWidth();
                 ImGui::NextColumn();
-                ImGui::PushItemWidth(-1);
+                ImGui::PushItemWidth(-1.0f);
                 ImGui::Combo("", &current_category, categories, IM_ARRAYSIZE(categories)); 
                 ImGui::PopItemWidth();
                 ImGui::Columns(1);
