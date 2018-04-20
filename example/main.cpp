@@ -38,16 +38,16 @@ int main(int, char**)
 		// 1. Show a simple window.
 		// Tip: if we don't call ImGui::Begin()/ImGui::End() the widgets automatically appears in a window called "Debug".
 		{
-            IMGui::SetNextWindowPos(ImVec2(0, 0));
-            IMGui::SetNextWindowSize(ImVec2(io.DisplaySize.x, io.DisplaySize.y)); 
-            IMGui::Begin("Main Window", &show_main_window, ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoTitleBar);
-            IMGui::Text("Welcome to Dear imgui for Vita.");
-            if (IMGui::Button("Show demo window")) {
+            ImGui::SetNextWindowPos(ImVec2(0, 0));
+            ImGui::SetNextWindowSize(ImVec2(io.DisplaySize.x, io.DisplaySize.y)); 
+            ImGui::Begin("Main Window", &show_main_window, ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoTitleBar);
+            ImGui::Text("Welcome to Dear imgui for Vita.");
+            if (ImGui::Button("Show demo window")) {
                 show_demo_window = true;
             }
-            IMGui::End();
-
 			ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);
+            ImGui::End();
+
 		}
 
 		// 3. Show the ImGui demo window. Most of the sample code is in ImGui::ShowDemoWindow(). Read its code to learn more about Dear ImGui!
