@@ -107,13 +107,13 @@ static int selected_app = 0;
                 ImGui::PopItemWidth();
                 ImGui::NextColumn();
                 ImGui::PushItemWidth(-1.0f);
-                ImGui::Combo("", &current_category, categories, IM_ARRAYSIZE(categories));
+                ImGui::Combo("##categories", &current_category, categories, IM_ARRAYSIZE(categories));
                 ImGui::Columns(1);
         ImGui::Spacing();
                 //ImGui::Dummy(ImVec2(0.0f, 5.0f));
 
                 ImGui::PushItemWidth(-1.0f);
-                ImGui::ListBox("", &selected_app, apps, IM_ARRAYSIZE(apps), 11);
+                ImGui::ListBox("##apps", &selected_app, apps, IM_ARRAYSIZE(apps), 11);
                 break;
             case BT_WIN_UPDATE:
                 break;
